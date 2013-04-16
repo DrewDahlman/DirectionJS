@@ -44,7 +44,7 @@
 			var slide_x = parseFloat(window.getComputedStyle(slide).left);
 
 			var swipe_area = new direction('drag_demo',150,function(data){
-				drag_demo_message.innerHTML = "DATA DEMO:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction;
+				drag_demo_message.innerHTML = "DATA DEMO:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/>SLIDE POSITION:<br/><br/>LEFT: "+ (-slide_x);
 				
 				// move slide
 				slide.style.left = -(slide_x + data.X)+"px";
