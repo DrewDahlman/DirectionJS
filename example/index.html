@@ -20,17 +20,23 @@
 		#notes{color:#222;width:600px; margin:auto; margin-top: 10px; margin-bottom: 10px;font-family:"Helvetica";font-size:12px; text-align:center;}
 
 		#slide{width: 3000px; height: 400px; position: absolute; left: 0px; top: 0px;}
-		.section{border-right:10px solid #eaeaea; background-color:#777; height: 100%; width: 20%; float:left;}
+		#slide_b{width: 3000px; height: 400px; position: absolute; left: 0px; top: 0px;}
+		.section{margin-right:5px; background-color:#777; height: 100%; width: 600px; float:left;}
 		</style>
 
 		<!-- JS -->
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src='../directionjs.min.js'></script>
 
 		<script>
 
 		function init(){
 			
-			// Data Demo
+			/////////////////////////////////////////
+			//
+			//	Data Demo
+			//
+			/////////////////////////////////////////
 			var data_demo_message = document.getElementById('data_demo_msg');
 			var swipe_area = new direction('data_demo',150,function(data){
 				data_demo_message.innerHTML = "DATA DEMO:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction;
@@ -38,7 +44,11 @@
 				data_demo_message.innerHTML = "DATA DEMO:<br/><br/>STOP X: "+data.X+"<br/>STOP Y: "+data.Y+"<br/>DIRECTION: "+data.direction;
 			});
 
-			// Drag Demo
+			/////////////////////////////////////////
+			//
+			//	Drag Demo
+			//
+			/////////////////////////////////////////
 			var drag_demo_message = document.getElementById('drag_demo_msg');
 			var slide = document.getElementById('slide');
 			var slide_x = parseFloat(window.getComputedStyle(slide).left);
@@ -54,20 +64,78 @@
 				drag_demo_message.innerHTML = "<b>DRAG DEMO</b>:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/><b>SLIDE POSITION:</b><br/>LEFT: "+ (-slide_x);
 			});
 
+			/////////////////////////////////////////
+			//
+			//	Drag Demo With jQuery
+			//
+			/////////////////////////////////////////
+			var drag_demo_b_message = document.getElementById('drag_demo_b_msg');
+			var slide_b = $("#slide_b");
+			var slide_b_x = parseFloat(slide_b.css('left'));
+			var slide_width = $(".section").width() + 5;
+
+			slide_b.data('slide',0);
+
+			var swipe_area = new direction('drag_demo_b',150,function(data){
+
+				// move slide
+				$(slide_b).css({'left':(slide_b_x - data.X)});
+
+				drag_demo_b_message.innerHTML = "<b>DRAG DEMO</b>:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/><b>SLIDE POSITION:</b><br/>LEFT: "+ (-slide_b_x);
+
+			},function(data){
+
+				slide_b_x = slide_b_x - data.X;
+				console.log(slide_b_x)
+				if(data.direction == "left" && slide_b_x > -slide_b.width() - slide_width){
+
+					// +1 slide data
+					slide_b.data('slide',slide_b.data('slide')+1);
+					var move = -(slide_b.data('slide') * slide_width);
+
+					// animate
+					slide_b.stop().animate({'left':move});
+				}
+				if(data.direction == "right"){
+
+					// -1 slide data
+					slide_b.data('slide',slide_b.data('slide')-1);
+					var move = -(slide_b.data('slide') * slide_width);
+
+					// animate
+					slide_b.animate({'left':move});
+
+				}
+				else {
+					var move = -(slide_b.data('slide') * slide_width);
+					slide_b.stop().animate({'left':move});
+				}
+
+				slide_b_x = move;
+				
+
+				drag_demo_b_message.innerHTML = "<b>DRAG DEMO</b>:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/><b>SLIDE POSITION:</b><br/>LEFT: "+ (-slide_b_x);
+			});
+
 		}
 		</script>
 
 	</head>
 	<body onload='init();'>
+
 		<div id='notes'>Note: To enable this demo you must view on mobile device or set your user agent to a mobile device UA.</div>
 		<div class='wrapper_intro' id='intro'>
 			<div class='message' id='intro_message'><strong>How to use:</strong><br/><br/>
 				var swipe_element = new direction('element_id',min_movement,drag_callback,end_callback);
 			</div>
 		</div>
+
+		<div id='notes'>Data Demo</div>
 		<div class='wrapper' id='data_demo'>
 			<div class='message' id='data_demo_msg'>DATA DEMO:</div>
 		</div>
+
+		<div id='notes'>Drag Demo</div>
 		<div class='wrapper' id='drag_demo'>
 			<div class='message' id='drag_demo_msg'><b>DRAG DEMO:</b></div>
 			<div id='slide'>
@@ -78,5 +146,18 @@
 				<div class='section'></div>
 			</div>
 		</div>
+
+		<div id='notes'>Drag Demo With jQuery</div>
+		<div class='wrapper' id='drag_demo_b'>
+			<div class='message' id='drag_demo_b_msg'><b>DRAG DEMO:</b></div>
+			<div id='slide_b'>
+				<div class='section'></div>
+				<div class='section'></div>
+				<div class='section'></div>
+				<div class='section'></div>
+				<div class='section'></div>
+			</div>
+		</div>
+
 	</body>
 </html>
