@@ -14,8 +14,8 @@
 		<style>
 		*{margin:0px;}
 		html,body{height:100%; width: 100%; background-color: #eaeaea;}
-		.wrapper{width: 600px;height: 400px; background: #222; color:#fff; border: 5px solid #000; box-shadow: 0px 0px 3px rgba(0,0,0,.6);position: relative; margin: auto;overflow:hidden; margin-bottom: 155px;}
-		.wrapper_intro{width: 600px;height: 90px; background: #222; color:#fff; border: 5px solid #000; box-shadow: 0px 0px 3px rgba(0,0,0,.6);position: relative; margin: auto;overflow:hidden; margin-bottom: 155px;}
+		.wrapper{width: 600px;height: 400px; background: #222; color:#fff; border: 5px solid #000; box-shadow: 0px 0px 3px rgba(0,0,0,.6);position: relative; margin: auto;overflow:hidden; margin-bottom: 50px;}
+		.wrapper_intro{width: 600px;height: 90px; background: #222; color:#fff; border: 5px solid #000; box-shadow: 0px 0px 3px rgba(0,0,0,.6);position: relative; margin: auto;overflow:hidden; margin-bottom: 15px;}
 		.message{position: absolute; top:10px; left: 10px; font-family:"Helvetica"; font-size:12px;z-index:10;}
 		#notes{color:#222;width:600px; margin:auto; margin-top: 10px; margin-bottom: 10px;font-family:"Helvetica";font-size:12px; text-align:center;}
 
@@ -44,14 +44,14 @@
 			var slide_x = parseFloat(window.getComputedStyle(slide).left);
 
 			var swipe_area = new direction('drag_demo',150,function(data){
-				drag_demo_message.innerHTML = "DATA DEMO:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/>SLIDE POSITION:<br/><br/>LEFT: "+ (-slide_x);
+				drag_demo_message.innerHTML = "<b>DRAG DEMO</b>:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/><b>SLIDE POSITION:</b><br/>LEFT: "+ (-slide_x);
 				
 				// move slide
 				slide.style.left = -(slide_x + data.X)+"px";
 
 			},function(data){
 				slide_x = -parseFloat(window.getComputedStyle(slide).left);
-				drag_demo_message.innerHTML = "DATA DEMO:<br/><br/>STOP X: "+data.X+"<br/>STOP Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/>SLIDE POSITION:<br/><br/>LEFT: "+ (-slide_x);
+				drag_demo_message.innerHTML = "<b>DRAG DEMO</b>:<br/><br/>DRAG X: "+data.X+"<br/>DRAG Y: "+data.Y+"<br/>DIRECTION: "+data.direction+"<br/><br/><b>SLIDE POSITION:</b><br/>LEFT: "+ (-slide_x);
 			});
 
 		}
@@ -69,7 +69,7 @@
 			<div class='message' id='data_demo_msg'>DATA DEMO:</div>
 		</div>
 		<div class='wrapper' id='drag_demo'>
-			<div class='message' id='drag_demo_msg'>DRAG DEMO:</div>
+			<div class='message' id='drag_demo_msg'><b>DRAG DEMO:</b></div>
 			<div id='slide'>
 				<div class='section'></div>
 				<div class='section'></div>

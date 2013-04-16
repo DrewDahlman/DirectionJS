@@ -11,7 +11,8 @@ A simple javascript utility for detecting swipe direction and getting feedback o
 	);
 </pre>
 
-DirectionJS needs a threshold for movement, this is helpful when you may want to enable snapping of elements back to original position or to their next position based on how much movement has happened.
+##Min Movement ( Threshold )
+DirectionJS needs a threshold for movement, this is helpful when you may want to enable snapping of elements back to original position or to their next position based on how much movement has happened. If the threshold is not met DirectionJS will return a direction of none and 0,0 for the x,y returns.
 
 
 ##Dragging Callback
